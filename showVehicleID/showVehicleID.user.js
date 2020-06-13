@@ -1,6 +1,5 @@
 // ==UserScript==
 // @name         showVehicleID
-// @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Shows Vehicle ID
 // @author       Ron31
