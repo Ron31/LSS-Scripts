@@ -9,7 +9,7 @@
 
 (function() {
     'use strict';
-    let id = window.location.pathname.split('/')[2];
+    const id = window.location.pathname.split('/')[2];
 
     const rowDiv = document.createElement('div');
     rowDiv.classList.add("row");
