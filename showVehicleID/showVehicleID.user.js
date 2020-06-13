@@ -1,17 +1,17 @@
 // ==UserScript==
-// @name         TestScript
+// @name         showVehicleID
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
+// @version      1.0
+// @description  Shows Vehicle ID
 // @author       Ron31
-// @match        https://www.leitstellenspiel.de/vehicles/27525770
+// @match        https://www.leitstellenspiel.de/vehicles/*
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
     let id = window.location.pathname.split('/')[2];
-    
+
     const rowDiv = document.createElement('div');
     rowDiv.classList.add("row");
     const col1Div = document.createElement('div');
