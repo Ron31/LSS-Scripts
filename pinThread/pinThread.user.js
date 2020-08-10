@@ -10,47 +10,71 @@
 (function() {
     'use strict';
 
+    const pinBtnClass = 'pinThreadsBtn';
+    const storageKey = 'forumPins';
+
+    const threadlist = document.getElementById('alliance_thread_index_table');
+    if (!threadlist) return;
+
+    const pinnedHolder = document.createElement('tbody');
+    threadlist.insertBefore(
+        pinnedHolder,
+        threadlist.querySelector('tbody:nth-of-type(2)')
+    );
+
+    const pinnedThreadNodes = {};
+
+    threadlist.addEventListener('click', e => {
+        const btn = e.target.closest(`.${pinBtnClass}[thread-id]`);
+        if (!btn) return;
+        const field = btn.parentElement;
+        if (!field) return;
+        const threadId = field.parentElement
+            .querySelector('td h5 a')
+            .href.split('/')[4];
+        const pinned = JSON.parse(window.localStorage.forumPins || '[]');
+        if (pinned.includes(threadId))
+            window.localStorage.setItem(
+                storageKey,
+                JSON.stringify(pinned.filter(pin => pin !== threadId))
+            );
+        else
+            window.localStorage.setItem(
+                storageKey,
+                JSON.stringify([...pinned, threadId])
+            );
+        togglePinnedState(threadId);
+    });
+
     const togglePinnedState = threadId => {
-        const pin = document.querySelector(`#alliance_thread_index_table tbody tr.danger td h5 a[href="/alliance_threads/${threadId}"]`);
-        const oElement = document.querySelector(`#alliance_thread_index_table tbody tr td h5 a[href="/alliance_threads/${threadId}"]`);
-        if (pin) {
-            if (pin.parentElement.parentElement.parentElement.classList.contains('hidden')){
-                pin.parentElement.parentElement.parentElement.classList.remove('hidden');
-                oElement.parentElement.parentElement.parentElement.classList.add('hidden');
-                console.log('remove hidden');
-            } else {
-                pin.parentElement.parentElement.parentElement.classList.add('hidden');
-                oElement.parentElement.parentElement.parentElement.classList.remove('hidden');
-                console.log('add hidden');
-            }
-        } else {
-            oElement.parentElement.parentElement.parentElement.classList.add('hidden');
-            const row = document.createElement('tr');
-            row.classList.add('danger');
-            row.innerHTML = oElement.parentElement.parentElement.parentElement.innerHTML;
-            document.querySelector('#alliance_thread_index_table').lastElementChild.firstElementChild.before(row);
-        }
+        let pinnedNode = pinnedThreadNodes[threadId];
+        if (!pinnedNode) {
+            const titleNode = threadlist.querySelector(
+                `a[href="/alliance_threads/${threadId}"]`
+            );
+            const threadNode =
+                titleNode?.parentElement.parentElement.parentElement;
+            if (!titleNode || !threadNode) return;
+            pinnedThreadNodes[threadId] = threadNode.cloneNode(true);
+            pinnedNode = pinnedThreadNodes[threadId];
+            pinnedNode.classList.replace('success', 'danger');
+            pinnedHolder.append(pinnedNode);
+        } else pinnedNode.classList.toggle('hidden');
     };
 
-    const pinned = JSON.parse(window.localStorage.forumPins || '[]');
-
-    pinned.forEach(togglePinnedState());
-    document.querySelectorAll('#alliance_thread_index_table tbody:nth-of-type(2) tr td:nth-of-type(1)').forEach((field) => {
-        const pinBtn = document.createElement('button');
-        pinBtn.classList.add('btn', 'btn-xs', 'btn-default');
-        pinBtn.innerText = '📌';
-        pinBtn.addEventListener('click', () => {
-            const pinned = JSON.parse(window.localStorage.forumPins || '[]');
-            if(pinned.includes(field.parentElement.querySelector('td h5 a').href.split('/')[4])) {
-                let newPinned = pinned.filter(pin =>  pin !== field.parentElement.querySelector('td h5 a').href.split('/')[4]);
-                window.localStorage.setItem('forumPins', JSON.stringify(newPinned));
-            } else {
-                pinned.push(field.parentElement.querySelector('td h5 a').href.split('/')[4]);
-                window.localStorage.setItem('forumPins', JSON.stringify(pinned));
-            }
+    threadlist
+        .querySelectorAll('tbody:nth-of-type(3) tr td:nth-of-type(1)')
+        .forEach(field => {
+            const pinBtn = document.createElement('button');
+            pinBtn.classList.add('btn', 'btn-xs', 'btn-default', pinBtnClass);
+            pinBtn.innerText = '📌';
+            pinBtn.setAttribute(
+                'thread-id',
+                field.parentElement.querySelector('td h5 a').href.split('/')[4]
+            );
+            field.appendChild(pinBtn);
         });
-        togglePinnedState(field.parentElement.querySelector('td h5 a').href.split('/')[4]);
-        field.appendChild(pinBtn);
-    })
+    JSON.parse(window.localStorage[storageKey] || '[]').forEach(
+        togglePinnedState
+    );
 })();
-
