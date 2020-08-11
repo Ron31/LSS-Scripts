@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         pinThread
-// @version      1.1D
+// @version      1.2
 // @description  Pin a thread at the top
 // @author       Ron31
 // @match        https://www.leitstellenspiel.de/alliance_threads
@@ -15,6 +15,10 @@
 
     const threadlist = document.getElementById('alliance_thread_index_table');
     if (!threadlist) return;
+
+    const styleobject = document.createElement('style');
+    styleobject.innerText = 'body.dark tr.danger td { background-color: #a94442; }'
+    document.head.appendChild(styleobject);
 
     const pinnedHolder = document.createElement('tbody');
     threadlist.insertBefore(
