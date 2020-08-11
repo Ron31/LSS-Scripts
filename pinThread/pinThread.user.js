@@ -48,18 +48,23 @@
 
     const togglePinnedState = threadId => {
         let pinnedNode = pinnedThreadNodes[threadId];
+        const titleNode = threadlist.querySelector(
+            `tbody:nth-of-type(3) a[href="/alliance_threads/${threadId}"]`
+        );
+        const threadNode =
+            titleNode?.parentElement.parentElement.parentElement;
         if (!pinnedNode) {
-            const titleNode = threadlist.querySelector(
-                `a[href="/alliance_threads/${threadId}"]`
-            );
-            const threadNode =
-                titleNode?.parentElement.parentElement.parentElement;
             if (!titleNode || !threadNode) return;
             pinnedThreadNodes[threadId] = threadNode.cloneNode(true);
             pinnedNode = pinnedThreadNodes[threadId];
-            pinnedNode.classList.replace('success', 'danger');
+            pinnedNode.classList.contains('success') && pinnedNode.classList.remove('success');
+            pinnedNode.classList.add('danger');
             pinnedHolder.append(pinnedNode);
-        } else pinnedNode.classList.toggle('hidden');
+            threadNode.classList.toggle('hidden');
+        } else {
+            pinnedNode.classList.toggle('hidden');
+            threadNode.classList.toggle('hidden');
+        }
     };
 
     threadlist
