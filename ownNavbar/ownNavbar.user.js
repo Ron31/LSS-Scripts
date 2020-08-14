@@ -11,29 +11,45 @@
     'use strict';
 
     const standardElementSelectors = ['#news', '#menu_profile', '#menu_alliance', '#navigation_top', '#coins_top', '[href="/messages"]', '[href="/freunde"]', '[href="https://forum.leitstellenspiel.de/"]']; /*Hier müsste man für NL und UK/US/AU anpassen*/
-    const showStandardElements = ["#menu_alliance"]; /*Hier alle selectors (von oben) rein, die nicht ausgeblendet werden sollen*/
+    const showStandardElements = ["#menu_profile", "#menu_alliance"]; /*Hier alle selectors (von oben) rein, die nicht ausgeblendet werden sollen*/
     const ownElements = [
         {
-            url: '#',
-            imgSrc: '/images/alliance.svg',
-            text: 'Allianz',
+            url: '#', //let url # when using childrens for a dropdown
+            imgSrc: '',
+            text: 'LSSM',
             appendLeft: false,
             childrens: [
                 {
-                    url: '/verband',
-                    openLightbox: true,
+                    url: 'https://lss-manager.de/',
+                    openLightbox: false,
                     imgSrc: '',
-                    text: 'Verband',
+                    text: 'Webseite',
                 },
                 {
-                    url: '/verband',
-                    openLightbox: true,
+                    url: 'https://docs.lss-manager.de/',
+                    openLightbox: false,
                     imgSrc: '',
-                    text: 'Verband',
+                    text: 'Docs',
                 },
+                {
+                    url: 'https://github.com/lss-manager/lss-manager-v3',
+                    openLightbox: false,
+                    imgSrc: 'https://github.githubassets.com/pinned-octocat.svg',
+                    text: 'Github',
+                }
+            ],
+        },
+        {
+            url: 'https://discord.gg/RcTNjpB',
+            imgSrc: 'https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg',
+            text: 'Discord',
+            appendLeft: true,
+            childrens: [
             ],
         },
     ];
+
+    let leftObject = document.querySelector('#navbar-main-collapse .navbar-right #news_li');
 
     standardElementSelectors.forEach(selector => !showStandardElements.includes(selector) && document.querySelector(`#navbar-main-collapse .navbar-right li a${selector}`)?.parentElement.classList.add('hidden'));
     ownElements.forEach(ownElement => {
@@ -41,12 +57,17 @@
         const aElement = document.createElement('a');
         aElement.setAttribute('role', 'button');
         aElement.setAttribute('href', ownElement.url);
-        aElement.innerText = ownElement.text;
-        const bElement = document.createElement('b');
-        bElement.classList.add('caret');
-        aElement.appendChild(bElement);
+        if(ownElement.imgSrc) {
+            aElement.innerHTML = `<img alt="${ownElement.text}" class="navbar-icon" src="${ownElement.imgSrc}" title="${ownElement.text}"><span class="visible-xs">${ownElement.text}</span>`
+        } else {
+            aElement.innerText = ownElement.text;
+        }
+
         let ulElement;
         if(ownElement.childrens[0]) {
+            const bElement = document.createElement('b');
+            bElement.classList.add('caret');
+            aElement.appendChild(bElement);
             liElement.classList.add('dropdown');
             aElement.classList.add('dropdown-toogle');
             aElement.setAttribute('data-toggle', 'dropdown');
@@ -59,13 +80,22 @@
                 const aChildElement = document.createElement('a');
                 ownChildElement.openLightbox && aChildElement.classList.add('lightbox-open');
                 aChildElement.setAttribute('href', ownChildElement.url);
-                aChildElement.innerText = ownChildElement.text;
+                if(ownChildElement.imgSrc) {
+                    aChildElement.innerHTML = `<img class="icon" src="${ownChildElement.imgSrc}" width="24" height="24"> ${ownChildElement.text}`
+                } else {
+                    aChildElement.innerText = ownChildElement.text;
+                }
                 liChildElement.appendChild(aChildElement);
                 ulElement.appendChild(liChildElement);
             });
-        };
+        }
         liElement.appendChild(aElement);
         ulElement && liElement.appendChild(ulElement);
-        document.querySelector('#navbar-main-collapse .navbar-right').appendChild(liElement);
+        if(ownElement.appendLeft) {
+                leftObject.parentNode.insertBefore(liElement, leftObject);
+                leftObject = liElement;
+        } else {
+            document.querySelector('#navbar-main-collapse .navbar-right').appendChild(liElement);
+        }
     })
 })();
