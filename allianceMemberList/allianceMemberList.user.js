@@ -37,7 +37,7 @@
                 }
             );
             fetch(target?.getAttribute('href')).then(data => {
-                if(data.status != '200') return;
+                if(data.status !== 200) return;
                 const href = target.getAttribute('href')?.split('/');
                 if (!href) return;
                 if (href[2] === 'kick') {
