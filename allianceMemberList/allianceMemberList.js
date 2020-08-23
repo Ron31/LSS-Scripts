@@ -30,6 +30,7 @@
             const target = event.target;
             if(!target || target.tagName !== 'A') return;
             target.removeAttribute('data-confirm');
+            if (target.getAttribute('href')?.split('/')[2] === 'kick' && !confirm('Rauswerfen?')) return;
             Array.from(target.parentElement?.children || []).forEach(
                 childBtn => {
                     childBtn.classList.add('disabled');
