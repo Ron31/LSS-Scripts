@@ -17,23 +17,29 @@
             url: '#', //let url # when using childrens for a dropdown
             imgSrc: '',
             text: 'LSSM',
+            openLightbox: false,
+            openNew: false,
             appendLeft: false,
+            glyphicon: 'glyphicon glyphicon-ok-circle',
             childrens: [
                 {
                     url: 'https://lss-manager.de/',
                     openLightbox: false,
+                    openNew: true,
                     imgSrc: '',
                     text: 'Webseite',
                 },
                 {
                     url: 'https://docs.lss-manager.de/',
                     openLightbox: false,
+                    openNew: true,
                     imgSrc: '',
                     text: 'Docs',
                 },
                 {
                     url: 'https://github.com/lss-manager/lss-manager-v3',
                     openLightbox: false,
+                    openNew: true,
                     imgSrc: 'https://github.githubassets.com/pinned-octocat.svg',
                     text: 'Github',
                 }
@@ -43,9 +49,10 @@
             url: 'https://discord.gg/RcTNjpB',
             imgSrc: 'https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg',
             text: 'Discord',
+            openLightbox: false,
+            openNew: true,
             appendLeft: true,
-            childrens: [
-            ],
+            class: '',
         },
     ];
 
@@ -57,8 +64,12 @@
         const aElement = document.createElement('a');
         aElement.setAttribute('role', 'button');
         aElement.setAttribute('href', ownElement.url);
+        ownElement.openLightbox && aElement.classList.add('lightbox-open');
+        !ownElement.openLightbox && ownElement.openNew && aElement.setAttribute('target', '_blank');
         if(ownElement.imgSrc) {
             aElement.innerHTML = `<img alt="${ownElement.text}" class="navbar-icon" src="${ownElement.imgSrc}" title="${ownElement.text}"><span class="visible-xs">${ownElement.text}</span>`
+        } else if (ownElement.glyphicon) {
+            aElement.innerHTML = `<span class="${ownElement.glyphicon}"></span> ${ownElement.text}`;
         } else {
             aElement.innerText = ownElement.text;
         }
@@ -79,6 +90,7 @@
                 liChildElement.setAttribute('role', 'presentation');
                 const aChildElement = document.createElement('a');
                 ownChildElement.openLightbox && aChildElement.classList.add('lightbox-open');
+                !ownChildElement.openLightbox && ownChildElement.openNew && aElement.setAttribute('target', '_blank');
                 aChildElement.setAttribute('href', ownChildElement.url);
                 if(ownChildElement.imgSrc) {
                     aChildElement.innerHTML = `<img class="icon" src="${ownChildElement.imgSrc}" width="24" height="24"> ${ownChildElement.text}`
