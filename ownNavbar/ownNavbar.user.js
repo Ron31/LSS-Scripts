@@ -18,6 +18,7 @@
             imgSrc: '',
             text: 'LSSM',
             appendLeft: false,
+            glyphicon: 'glyphicon glyphicon-ok-circle',
             childrens: [
                 {
                     url: 'https://lss-manager.de/',
@@ -44,8 +45,7 @@
             imgSrc: 'https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg',
             text: 'Discord',
             appendLeft: true,
-            childrens: [
-            ],
+            class: '',
         },
     ];
 
@@ -59,6 +59,8 @@
         aElement.setAttribute('href', ownElement.url);
         if(ownElement.imgSrc) {
             aElement.innerHTML = `<img alt="${ownElement.text}" class="navbar-icon" src="${ownElement.imgSrc}" title="${ownElement.text}"><span class="visible-xs">${ownElement.text}</span>`
+        } else if (ownElement.glyphicon) {
+            aElement.innerHTML = `<span class="${ownElement.glyphicon}"></span> ${ownElement.text}`;
         } else {
             aElement.innerText = ownElement.text;
         }
