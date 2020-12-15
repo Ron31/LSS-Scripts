@@ -33,7 +33,11 @@
             if (post.querySelector(authorLikeSelector)) posts.like.push(post);
             else if (post.querySelector(authorHighlightSelector)) posts.highlight.push(post);
         });
-        posts.like.forEach(post => post.querySelector('.messageFooterButtons .wcfLikeButton a.button:not(.active)')?.click());
+        posts.like.forEach(post => {
+            setTimeout(() => {
+                post.querySelector('.messageFooterButtons .wcfLikeButton a.button:not(.active)')?.click()
+            }, posts.like.indexOf(post) * 100)
+        });
         posts.highlight.forEach(post => post.querySelector('.messageFooterButtons .wcfLikeButton a.button:not(.active)') && highlight(post));
-    }, 5000)
+    }, 2000)
 })();
