@@ -8,6 +8,11 @@
 // ==/UserScript==
 
 (async function() {
+    if (!sessionStorage.aVehicleCategories || JSON.parse(sessionStorage.aVehicleCategories).lastUpdate < (new Date().getTime() - 60 * 1000 * 60)) {
+        $.getJSON('/api/vehicleCategories').done(data => sessionStorage.setItem('aVehicleCategories', JSON.stringify({ lastUpdate: new Date().getTime(), value: data})));
+    }
+    const aVehicleCategories = JSON.parse(sessionStorage.aVehicleCategories).value;
+
     //let mission_specs_cache;
     let style = document.createElement('style');
     style.innerText = '.card-headline.card-headline-info{background-color:#2196f3;color:#fff}.card';
@@ -21,7 +26,6 @@
             "id": missionID
         },
         success : function(r) {
-            console.log(r);
             showPanel(r);
         }
     });
@@ -40,7 +44,7 @@
             let number = document.createElement('td');
             number.innerText = value;
             let vehicle = document.createElement('td');
-            vehicle.innerText = key;
+            vehicle.innerText = aVehicleCategories[key].name;
             tr.appendChild(number);
             tr.appendChild(vehicle)
             tbody.appendChild(tr);
