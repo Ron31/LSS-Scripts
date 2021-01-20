@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         New Userscript
+// @name         MissionListThink-ReSi
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
-// @author       You
+// @description  a think
+// @author       Ron31
 // @match        https://rettungssimulator.online/
 // @grant        none
 // ==/UserScript==
