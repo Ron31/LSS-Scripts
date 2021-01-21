@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         New Userscript
+// @name         ReSi-MissionCount
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
-// @author       You
+// @description  Counts missions
+// @author       Ron31
 // @match        https://rettungssimulator.online/
 // @grant        none
 // ==/UserScript==
@@ -17,9 +17,14 @@
     let span = document.querySelector('#missions  span');
     let missions = document.querySelectorAll('div.mission-list-mission');
     let t = document.createElement('span');
-    t.innerText = missions.length + ' von ' + f(aBuildings.length);
+    t.innerHTML = '<span id="Ron31ml">' + missions.length + '</span>' + ' von ' + '<span id="Ron31mlb">' + f(aBuildings.length) + '</span>';
 
     span.insertAdjacentElement('afterend', t);
 
-
+    socket.on("newMission", () => {
+        document.getElementById('Ron31ml').innerText = parseInt(document.getElementById('Ron31ml').innerText) + 1;
+    });
+    socket.on("finishMission", () =>{
+        document.getElementById('Ron31ml').innerText = parseInt(document.getElementById('Ron31ml').innerText) - 1;
+    });
 })();
