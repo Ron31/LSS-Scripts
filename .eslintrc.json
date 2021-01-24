@@ -1,0 +1,22 @@
+{
+    "env": {
+        "es6": true
+    },
+    "plugins": [],
+    "extends": [
+        "eslint:recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "process": "readonly",
+        "__dirname": "readonly",
+        "PREFIX": "readonly"
+    },
+    "rules": {
+        "guard-for-in": 2,
+        "no-prototype-builtins": 0,
+        "prettier/prettier": "error",
+        "semi": ["error", "always"]
+    }
+}

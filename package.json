@@ -1,0 +1,17 @@
+{
+  "name": "LSS-Scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Ron31/LSS-Scripts.git",
+  "author": "Ron31 <ron3108@gmx.net>",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^7.16.0"
+  },
+  "prettier": {
+    "endOfLine": "lf",
+    "singleQuote": false,
+    "tabWidth": 4,
+    "trailingComma": "es5"
+  }
+}
