@@ -2,7 +2,7 @@
 // @name         LSS-Forum-Liker
 // @version      1.0.0
 // @description  Forum-Liker
-// @author       Jan
+// @author       A random giraffe
 // @include      https://forum.leitstellenspiel.de/*
 // @grant        none
 // ==/UserScript==
