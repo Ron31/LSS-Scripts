@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ReSi-MissionHelper
-// @version      1.0.0
+// @version      1.1.0
 // @description  Einsatzhelfer
 // @author       Ron31
 // @include      https://rettungssimulator.online/mission/*
@@ -33,7 +33,7 @@
     function showPanel(r) {
         let helper = document.createElement('div');
         helper.classList.add('card', 'missionHelper');
-        helper.innerHTML = '<div class="card-headline card-headline-info">Benötigte Mittel</div><div class="card-body"><table id="missionHelper-' + missionID + '"></table></div>';
+        helper.innerHTML = '<div class="card-headline card-headline-info">Benötigte Mittel</div><div class="card-body"><div class="alert alert-info"><div class="alert-content"><b>Anforderungen können sich durch Variationen ändern.</b></div></div><table id="missionHelper-' + missionID + '"></table></div>';
         let d = document.querySelector('.alarmed-vehicles');
         d.insertAdjacentElement('afterbegin', helper);
         let table = document.querySelector('table#missionHelper-' + missionID);
@@ -49,6 +49,7 @@
             tr.appendChild(vehicle)
             tbody.appendChild(tr);
         }
+
         table.appendChild(tbody);
     }
 })();
