@@ -5,6 +5,7 @@
 // @description  Counts missions
 // @author       Ron31
 // @match        https://rettungssimulator.online/
+// @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/x/resi-missions.user.js
 // @grant        none
 // ==/UserScript==
 
