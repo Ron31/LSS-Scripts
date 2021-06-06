@@ -5,6 +5,7 @@
 // @description  Counts missions
 // @author       Ron31
 // @match        https://rettungssimulator.online/
+// @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/x/resi-missions.user.js
 // @grant        none
 // ==/UserScript==
 
@@ -13,7 +14,7 @@
     if(!localStorage.aBuildings || JSON.parse(localStorage.aBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60)) await $.getJSON('/api/userBuildings').done(data => localStorage.setItem('aBuildings', JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
     const aBuildings = JSON.parse(localStorage.aBuildings).value;
     const f = (x) => Math.ceil(4 * Math.log2(x + 2)+ 0.05 * x) - 4;
-    const dep = aBuildings.filter(x => [1, 3].includes(x.buildingType));
+    const dep = aBuildings.filter(x => [1, 3, 5, 6].includes(x.buildingType));
 
     let span = document.querySelector('#missions  span');
     let missions = document.querySelectorAll('div.mission-list-mission');

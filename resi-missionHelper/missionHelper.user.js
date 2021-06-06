@@ -4,6 +4,7 @@
 // @description  Einsatzhelfer
 // @author       Ron31
 // @include      https://rettungssimulator.online/mission/*
+// @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/resi-missionHelper/missionHelper.user.js
 // @grant        none
 // ==/UserScript==
 
