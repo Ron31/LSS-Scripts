@@ -5,7 +5,7 @@
 // @description  heatmap
 // @author       Ron31
 // @match        https://rettungssimulator.online/
-// @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/ReSi-Heatmap/heatmap.user.js
+// @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/resi-heatmap/heatmap.user.js
 // @grant        none
 // ==/UserScript==
 (async function() {
