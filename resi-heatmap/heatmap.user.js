@@ -15,7 +15,7 @@
     const opacity = 0.05; //Fill opacity.
 
     Object.keys(departmentMarkers).forEach((buildingMarker) => {
-        if(ofBuildingTypes.includes(document.querySelector(".card[userdepartmentid='" + buildingMarker + "']").getAttribute("buildingtype"))) return;
+        if(!ofBuildingTypes.includes(parseInt(document.querySelector(".card[userdepartmentid='" + buildingMarker + "']").getAttribute("buildingtype")))) return;
         let i = L.circle(departmentMarkers[buildingMarker]._latlng, {
             color: color,
             fillColor: color,
