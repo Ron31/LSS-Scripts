@@ -14,7 +14,7 @@
     if(!localStorage.aBuildings || JSON.parse(localStorage.aBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60)) await $.getJSON('/api/userBuildings').done(data => localStorage.setItem('aBuildings', JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
     const aBuildings = JSON.parse(localStorage.aBuildings).value;
     const f = (x) => Math.ceil(4 * Math.log2(x + 2)+ 0.05 * x) - 4;
-    let dep = aBuildings.filter(x => [1,3,5,6].includes(x.buildingType));
+    let dep = aBuildings.filter(x => GENERATING_BUILDING_IDS.includes(x.buildingType));
 
     let span = document.querySelector('#missions span');
     let missions = document.querySelectorAll('div.mission-list-mission');
@@ -32,7 +32,7 @@
     socket.on("departmentBuy", async () => {
         await $.getJSON('/api/userBuildings').done(data => localStorage.setItem('aBuildings', JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
         const aBuildings = JSON.parse(localStorage.aBuildings).value;
-        dep = aBuildings.filter(x => [1,3,5,6].includes(x.buildingType));
+        dep = aBuildings.filter(x => GENERATING_BUILDING_IDS.includes(x.buildingType));
         document.querySelector('missionCountPossible').innerText = f(dep.length);
     })
 })();
