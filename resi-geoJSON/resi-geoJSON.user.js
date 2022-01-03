@@ -3,7 +3,7 @@
 // @version      1.1
 // @description  geoJSON on map
 // @author       Ron31
-// @match        https://rettungssimulator.online/*
+// @match        https://rettungssimulator.online/
 // @grant        none
 // @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/resi-geoJSON/resi-geoJSON.user.js
 // @downloadURL  https://github.com/Ron31/LSS-Scripts/raw/dev/resi-geoJSON/resi-geoJSON.user.js
