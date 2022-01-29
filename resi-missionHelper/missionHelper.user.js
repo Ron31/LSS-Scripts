@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ReSi-MissionHelper
-// @version      1.2.0
+// @version      1.3.0
 // @description  Einsatzhelfer
 // @author       Ron31
 // @include      https://rettungssimulator.online/mission/*
@@ -34,7 +34,7 @@
     function showPanel(r) {
         let helper = document.createElement('div');
         helper.classList.add('card', 'missionHelper');
-        helper.innerHTML = '<div class="card-headline card-headline-info">Benötigte Mittel</div><div class="card-body"><div class="alert alert-info"><div class="alert-content"><b>Anforderungen können sich durch Variationen ändern.</b></div></div><table id="missionHelper-' + missionID + '"></table><div class="alert alert-info"><div class="alert-content"><b>Generelle Informationen:</b></div></div><table id="informationHelper-' + missionID + '"></table></div>';
+        helper.innerHTML = '<div class="card-headline card-headline-info">Mindestens benötigte Mittel</div><div class="card-body"><div class="alert alert-info"><div class="alert-content"><b>Anforderungen können sich durch Variationen ändern.</b></div></div><table id="missionHelper-' + missionID + '"></table><div class="alert alert-info"><div class="alert-content"><b>Generelle Informationen:</b></div></div><table id="informationHelper-' + missionID + '"></table></div>';
         let a = document.querySelector('.alarmed-vehicles');
         a.insertAdjacentElement('afterbegin', helper);
         let table = document.querySelector('table#missionHelper-' + missionID);
@@ -56,20 +56,32 @@
         let tbody2 = document.createElement('tbody');
         let tr = document.createElement('tr');
         let number = document.createElement('td');
-        number.innerText = r.credits;
+        number.innerText = new Intl.NumberFormat('de-DE').format(r.credits);
         let vehicle = document.createElement('td');
         vehicle.innerText = "Credits:";
         tr.appendChild(vehicle);
         tr.appendChild(number);
         tbody2.appendChild(tr);
-        /*let tr2 = document.createElement('tr');
-        let number2 = document.createElement('td');
-        number.innerText = r.fireValue;
-        let vehicle2 = document.createElement('td');
-        vehicle.innerText = "fireValue:";
-        tr2.appendChild(vehicle2);
-        tr2.appendChild(number2);
-        tbody2.appendChild(tr2);*/
+        if(r.patients) {
+            let tr2 = document.createElement('tr');
+            let number2 = document.createElement('td');
+            number2.innerText = r.patients.min === r.patients.max ? r.patients.max : r.patients.min + '-' + r.patients.max;
+            let vehicle2 = document.createElement('td');
+            vehicle2.innerText = "Patienten:";
+            tr2.appendChild(vehicle2);
+            tr2.appendChild(number2);
+            tbody2.appendChild(tr2);
+            if (r.patients.naChance !== 0) {
+                let tr3 = document.createElement('tr');
+                let number3 = document.createElement('td');
+                number3.innerText = r.patients.naChance + '%';
+                let vehicle3 = document.createElement('td');
+                vehicle3.innerText = "Notarzt Chance:";
+                tr3.appendChild(vehicle3);
+                tr3.appendChild(number3);
+                tbody2.appendChild(tr3);
+            }
+        }
         table2.appendChild(tbody2);
 
     }
