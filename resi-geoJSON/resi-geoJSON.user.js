@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ReSi-GeoJSON
-// @version      1.1
+// @version      1.2
 // @description  geoJSON on map
 // @author       Ron31
 // @match        https://rettungssimulator.online/
@@ -11,7 +11,7 @@
 
 (async function() {
     'use strict';
-    if(!mymap) return;
+    if(typeof mymap === typeof undefined) return;
 
     let geoData;
     if(!geoData) {
