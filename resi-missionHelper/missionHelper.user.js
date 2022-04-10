@@ -56,9 +56,9 @@
         let tbody2 = document.createElement('tbody');
         let tr = document.createElement('tr');
         let number = document.createElement('td');
-        number.innerText = new Intl.NumberFormat('de-DE').format(r.credits);
+        number.innerText = new Intl.NumberFormat('de-DE').format(r.credits) + " Münzen";
         let vehicle = document.createElement('td');
-        vehicle.innerText = "Credits:";
+        vehicle.innerText = "Vergütung:";
         tr.appendChild(vehicle);
         tr.appendChild(number);
         tbody2.appendChild(tr);
