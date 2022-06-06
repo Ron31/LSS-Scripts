@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ReSi-MissionCount
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Counts missions
 // @author       Ron31
 // @match        https://rettungssimulator.online/
