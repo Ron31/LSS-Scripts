@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         ReSi-MissionCount
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7
 // @description  Counts missions
 // @author       Ron31
 // @match        https://rettungssimulator.online/
+// @downloadURL  https://github.com/Ron31/LSS-Scripts/raw/dev/resi-missionCount/resi-missions.user.js
 // @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/resi-missionCount/resi-missions.user.js
 // @grant        none
 // ==/UserScript==
@@ -28,8 +29,8 @@ function updateCount() {
 
     let span = document.querySelector('div[tab="ownMissions"]');
     let span2 = document.querySelector('div[tab="sharedMissions"]');
-    let ownMissions = document.querySelectorAll('div#ownMissions div.missions-container');
-    let sharedMissions = document.querySelectorAll('div#sharedMissions div.missions-container');
+    let ownMissions = document.querySelectorAll('div#missions-container-own div.mission-list-mission');
+    let sharedMissions = document.querySelectorAll('div#missions-container-shared div.mission-list-mission');
     span.insertAdjacentHTML('afterbegin', '<span class="badge-container"><span class="badge ncOpenMissions" style="color: #fff !important; background-color: red !important;"><span id="missionCount">' + ownMissions.length + '</span>/<span id="missionCountPossible">' + f(dep.length) + '</span></span></span>')
     span2.insertAdjacentHTML('afterbegin', '<span class="badge-container"><span class="badge ncOpenMissions" style="color: #fff !important; background-color: red !important;" id="missionCountShared">' + sharedMissions.length + '</span></span>')
 
