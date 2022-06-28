@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ReSi-MissionCount
 // @namespace    http://tampermonkey.net/
-// @version      0.7
+// @version      0.8
 // @description  Counts missions
 // @author       Ron31
 // @match        https://rettungssimulator.online/
@@ -13,7 +13,9 @@
 function updateCount() {
     let ownMissions = document.querySelectorAll('div#missions-container-own div.mission-list-mission');
     let sharedMissions = document.querySelectorAll('div#missions-container-shared div.mission-list-mission');
+    let attendedMissions = document.querySelectorAll('div#missions-container-shared div.mission-list-mission svg.mission-participation[class*="text"]');
     document.getElementById('missionCount').innerText = ownMissions.length.toString();
+    document.getElementById('missionCountSharedAttended').innerText = attendedMissions.length.toString();
     document.getElementById('missionCountShared').innerText = sharedMissions.length.toString();
 }
 
@@ -31,8 +33,9 @@ function updateCount() {
     let span2 = document.querySelector('div[tab="sharedMissions"]');
     let ownMissions = document.querySelectorAll('div#missions-container-own div.mission-list-mission');
     let sharedMissions = document.querySelectorAll('div#missions-container-shared div.mission-list-mission');
+    let attendedMissions = document.querySelectorAll('div#missions-container-shared div.mission-list-mission svg.mission-participation[class*="text"]');
     span.insertAdjacentHTML('afterbegin', '<span class="badge-container"><span class="badge ncOpenMissions" style="color: #fff !important; background-color: red !important;"><span id="missionCount">' + ownMissions.length + '</span>/<span id="missionCountPossible">' + f(dep.length) + '</span></span></span>')
-    span2.insertAdjacentHTML('afterbegin', '<span class="badge-container"><span class="badge ncOpenMissions" style="color: #fff !important; background-color: red !important;" id="missionCountShared">' + sharedMissions.length + '</span></span>')
+    span2.insertAdjacentHTML('afterbegin', '<span class="badge-container"><span class="badge ncOpenMissions" style="color: #fff !important; background-color: red !important;"><span id="missionCountSharedAttended">' + attendedMissions.length + '</span>/<span id="missionCountShared">' + sharedMissions.length  + '</span></span></span>')
 
     socket.on("newMission", () => {
         updateCount();
