@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ReSi-MissionCount
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.8.1
 // @description  Counts missions
 // @author       Ron31
 // @match        https://rettungssimulator.online/
@@ -40,6 +40,11 @@ function updateCount() {
     socket.on("newMission", () => {
         updateCount();
     });
+
+    socket.on("missionStatus", () => {
+        updateCount();
+    });
+
     socket.on("finishMission", () =>{
         updateCount();
     });
