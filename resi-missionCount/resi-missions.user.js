@@ -42,7 +42,7 @@ function updateCount() {
     });
 
     socket.on("missionStatus", () => {
-        updateCount();
+        setTimeout(updateCount, 1000);
     });
 
     socket.on("finishMission", () =>{
