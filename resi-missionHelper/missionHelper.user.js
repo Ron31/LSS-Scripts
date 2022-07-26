@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ReSi-MissionHelper
-// @version      1.3.0
+// @version      1.4.0
 // @description  Einsatzhelfer
 // @author       Ron31
 // @include      https://rettungssimulator.online/mission/*
@@ -56,7 +56,7 @@
         let tbody2 = document.createElement('tbody');
         let tr = document.createElement('tr');
         let number = document.createElement('td');
-        number.innerText = new Intl.NumberFormat('de-DE').format(r.credits) + " Münzen";
+        number.innerText = new Intl.NumberFormat('de-DE').format(r.credits) + " Münzen (80%: " + new Intl.NumberFormat('de-DE').format(r.credits * 0.8) + ")";
         let vehicle = document.createElement('td');
         vehicle.innerText = "Vergütung:";
         tr.appendChild(vehicle);
