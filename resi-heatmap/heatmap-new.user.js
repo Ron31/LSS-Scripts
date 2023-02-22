@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         ReSi-Heatmap-NewBuilding
 // @namespace    http://tampermonkey.net/
-// @version      dev-0.2
+// @version      0.1
 // @description  heatmap for new building
 // @author       Ron31
+// @updateURL    https://github.com/Ron31/LSS-Scripts/raw/dev/resi-heatmap/heatmap-new.user.js
 // @match        https://rettungssimulator.online/
 // @grant        none
 // ==/UserScript==
