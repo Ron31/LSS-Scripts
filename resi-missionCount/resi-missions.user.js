@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ReSi-MissionCount
 // @namespace    http://tampermonkey.net/
-// @version      0.8.1
+// @version      0.8.2
 // @description  Counts missions
 // @author       Ron31
 // @match        https://rettungssimulator.online/
@@ -23,7 +23,7 @@ function updateCount() {
     'use strict';
     if(!localStorage.aBuildings || JSON.parse(localStorage.aBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60)) await $.getJSON('/api/userBuildings').done(data => localStorage.setItem('aBuildings', JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
     const aBuildings = JSON.parse(localStorage.aBuildings).value;
-    const f = (x) => Math.ceil(4 * Math.log2(x + 2)+ 0.05 * x) - 4;
+    const f = (x) => Math.ceil(4 * Math.log2(x + 2) + 0.25 * x) - 4;
     let dep = aBuildings.filter(x => GENERATING_BUILDING_IDS.includes(x.buildingType));
     //document.querySelector('div[tab-id="ownMissions"]').style.width = null;
     //document.querySelector('div[tab-id="ownMissions"]').style.marginRight = '15px';
